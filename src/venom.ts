@@ -1,22 +1,47 @@
 import { create, Whatsapp } from 'venom-bot';
 
-function start(client: Whatsapp) {
-  client.onMessage((message) => {
-    if (message.body === 'Hi' && message.isGroupMsg === false) {
-      client
-        .sendText(message.from, 'Welcome Venom 🕷')
-        .then((result) => {
-          console.log('Result: ', result);
-        })
-        .catch((error) => {
-          console.error('Error when sending: ', error);
-        });
-    }
-  });
+const qrCodes: {
+  code: any;
+} = {
+  code: undefined,
+};
+
+function getQrCode(qrCode: string) {
+  console.log(qrCode);
+  qrCodes.code = qrCode;
+  console.log(qrCodes.code);
 }
 
-create('marketing')
-  .then((client) => start(client))
-  .catch((error) => {
-    console.log(error);
-  });
+// function createInstance(
+//   number: string,
+//   callback: (qrCode: string) => void,
+// ): Promise<Whatsapp> {
+//   return create({
+//     session: number,
+//     catchQR: callback,
+//   });
+// }
+
+class CreateInstance {
+  private qrCode = '';
+
+  createVenomInstance(): void {
+    console.log('Iniciando');
+    create({
+      session: 'Qualquer',
+      catchQR: this.setQrCode,
+    });
+  }
+
+  setQrCode(qrCode: string): void {
+    console.log('Aqui');
+    console.log(qrCode);
+    this.qrCode = qrCode;
+  }
+
+  getQrCode(): string {
+    return this.qrCode;
+  }
+}
+
+export { CreateInstance };
