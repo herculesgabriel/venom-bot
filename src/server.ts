@@ -10,5 +10,5 @@ server.use(routes);
 const { PORT = 3333 } = process.env;
 
 server.listen(PORT, () => {
-  console.log(`Server started at port ${PORT}`)
+  console.log(`Server started at port ${PORT}`);
 });

@@ -6,7 +6,7 @@ routes.route('/')
   .get((request, response) => {
     response
       .status(200)
-      .json({ message: 'OK' })
+      .json({ message: 'OK' });
   });
 
 export { routes };

@@ -1,11 +1,5 @@
 import { create, Whatsapp } from 'venom-bot';
 
-create('marketing')
-  .then((client) => start(client))
-  .catch((error) => {
-    console.log(error);
-  });
-
 function start(client: Whatsapp) {
   client.onMessage((message) => {
     if (message.body === 'Hi' && message.isGroupMsg === false) {
@@ -20,3 +14,9 @@ function start(client: Whatsapp) {
     }
   });
 }
+
+create('marketing')
+  .then((client) => start(client))
+  .catch((error) => {
+    console.log(error);
+  });
