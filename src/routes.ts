@@ -5,17 +5,34 @@ type QrCode = { [key: string]: string };
 
 const routes = Router();
 
-const sessions: Whatsapp[] = [];
+const instances: Whatsapp[] = [];
 
 const qrCodes: QrCode = {};
+
+const names: {
+  session: string;
+  name: string;
+}[] = [];
 
 function createInstance(sessionName: string): void {
   create(sessionName, (qrCode) => {
     qrCodes[sessionName] = qrCode;
   })
     .then((client) => {
-      sessions.push(client);
-      sessions[0].onMessage((message) => client.sendText(message.from, 'Hey!'));
+      let messageNumber = 0;
+      instances.push(client);
+      const currentInstance = instances.find(({ session }) => session === sessionName);
+
+      currentInstance?.onMessage((message) => {
+        if (messageNumber === 0) {
+          client.sendText(message.from, 'Olá! Qual é o seu nome?');
+          messageNumber += 1;
+        } else {
+          names.push({ session: sessionName, name: message.body });
+          const foundUser = names.find((user) => user.session === sessionName);
+          client.sendText(message.from, `É um prazer ter você aqui, ${foundUser?.name}`);
+        }
+      });
     })
     .catch((err) => console.log(err));
 }
@@ -24,7 +41,7 @@ async function getQrCode(session: string): Promise<string> {
   const qrCode = qrCodes[session];
 
   if (!qrCode) {
-    await new Promise((resolve) => setTimeout(() => resolve(''), 5000));
+    await new Promise((resolve) => setTimeout(() => resolve(''), 1500));
     return getQrCode(session);
   }
 
