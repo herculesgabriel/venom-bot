@@ -1,5 +1,8 @@
 import { Router } from 'express';
 import { create, Whatsapp } from 'venom-bot';
+import fs from 'fs';
+import path from 'path';
+import { startClient } from './venom';
 
 type QrCode = { [key: string]: string };
 
@@ -8,6 +11,15 @@ const routes = Router();
 const instances: Whatsapp[] = [];
 
 const qrCodes: QrCode = {};
+
+const listSessions = fs.readdirSync(path.join(__dirname, '..', 'tokens'));
+
+listSessions.forEach((session) => {
+  const nameSession = session.split('.')[0];
+  create(nameSession)
+    .then((client) => startClient(client))
+    .catch((error) => console.log(error));
+});
 
 const names: {
   session: string;

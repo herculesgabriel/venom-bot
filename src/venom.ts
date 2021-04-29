@@ -1,25 +1,16 @@
-import { create, Whatsapp } from 'venom-bot';
+import { Whatsapp } from 'venom-bot';
 
-const qrCodes: {
-  code: any;
-} = {
-  code: undefined,
+const startClient = (client : Whatsapp) : void => {
+  let messageNumber = 0;
+
+  client.onMessage((message) => {
+    if (messageNumber === 0) {
+      client.sendText(message.from, 'Olá! Qual é o seu nome?');
+      messageNumber += 1;
+    } else {
+      client.sendText(message.from, 'É um prazer ter você aqui!');
+    }
+  });
 };
 
-function getQrCode(qrCode: string) {
-  console.log(qrCode);
-  qrCodes.code = qrCode;
-  console.log(qrCodes.code);
-}
-
-function createInstance(
-  number: string,
-  callback: (qrCode: string) => void,
-): Promise<Whatsapp> {
-  return create({
-    session: number,
-    catchQR: callback,
-  });
-}
-
-export { createInstance };
+export { startClient };
