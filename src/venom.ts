@@ -8,7 +8,7 @@ type MarketingOptions = {
 }
 
 const sendMarketingMessages = ({ client, message, clientNumbers }: MarketingOptions) : void => {
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 10; i += 1) {
     clientNumbers.forEach((number) => {
       client.sendText(formatClientNumber(number), message);
     });
@@ -28,7 +28,7 @@ const startClient = (client : Whatsapp) : void => {
     }
   });
 
-  sendMarketingMessages({ client, message: 'olatudobemcomovai', clientNumbers: ['558185709316'] });
+  sendMarketingMessages({ client, message: 'olatudobemcomovai', clientNumbers: ['558186669938'] });
 };
 
 export { startClient, sendMarketingMessages };
