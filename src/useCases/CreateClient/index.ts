@@ -1,7 +1,4 @@
-import { CreateClientUseCase } from './CreateClientUseCase';
 import { CreateClientController } from './CreateClientController';
+import { CreateClientUseCase } from './CreateClientUseCase';
 
-const createClientUseCase = new CreateClientUseCase();
-const createClientController = new CreateClientController(createClientUseCase);
-
-export { createClientController, createClientUseCase };
+export { CreateClientController, CreateClientUseCase };
