@@ -43,6 +43,7 @@ export class VenomChatService implements IChatService {
     if (!foundClient) {
       console.error('Start instance: client not found');
     }
+
     foundClient?.onMessage((message) => {
       foundClient?.sendText(message.from, 'Esta é uma resposta :)');
     });

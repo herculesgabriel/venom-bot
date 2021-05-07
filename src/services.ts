@@ -7,6 +7,7 @@ import {
   SendMarketingMessagesController,
   SendMarketingMessagesUseCase,
 } from './useCases/SendMarketingMessages';
+import { create } from 'venom-bot';
 
 const venomChatService = new VenomChatService();
 

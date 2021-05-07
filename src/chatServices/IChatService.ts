@@ -4,4 +4,3 @@ export interface IChatService {
   getAuthCode(session: string): Promise<string>;
   sendMessage(from: string, to: string, messages: string[]): Promise<void>;
 }
-// session -> id
