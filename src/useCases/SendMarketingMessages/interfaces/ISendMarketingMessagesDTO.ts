@@ -1,5 +1,5 @@
 export interface ISendMarketingMessagesDTO {
   client: string;
-  message: string;
+  messages: string[];
   clientNumbers: string[];
 }

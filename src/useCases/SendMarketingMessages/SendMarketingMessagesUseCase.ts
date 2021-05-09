@@ -7,14 +7,12 @@ export class SendMarketingMessagesUseCase {
 
   public execute = async ({
     client,
-    message,
+    messages,
     clientNumbers,
   }: ISendMarketingMessagesDTO): Promise<void> => {
-    for (let i = 0; i < 10; i += 1) {
-      clientNumbers.forEach((number) => {
-        const formattedNumber = formatClientNumber(number);
-        this.chatService.sendMessage(client, formattedNumber, [message]);
-      });
-    }
+    clientNumbers.forEach((number) => {
+      const formattedNumber = formatClientNumber(number);
+      this.chatService.sendMessage(client, formattedNumber, messages);
+    });
   };
 }

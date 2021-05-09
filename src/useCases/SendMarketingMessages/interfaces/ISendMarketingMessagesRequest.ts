@@ -1,5 +1,5 @@
 export interface ICreateClientRequestBody {
   session: string;
-  message: string;
+  messages: string[];
   clientNumbers: string[];
 }

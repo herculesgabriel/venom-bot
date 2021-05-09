@@ -7,12 +7,12 @@ export class SendMarketingMessagesController {
   constructor(private sendMarketingMessagesUseCase: SendMarketingMessagesUseCase) {}
 
   public handle = async (request: Request, response: Response): Promise<void> => {
-    const { session, message, clientNumbers }: ICreateClientRequestBody = request.body;
+    const { session, messages, clientNumbers }: ICreateClientRequestBody = request.body;
 
     try {
       this.sendMarketingMessagesUseCase.execute({
         client: session,
-        message,
+        messages,
         clientNumbers,
       });
 
