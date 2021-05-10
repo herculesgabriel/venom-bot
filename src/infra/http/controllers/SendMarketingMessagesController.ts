@@ -1,16 +1,17 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
-import { SendMarketingMessagesUseCase } from './SendMarketingMessagesUseCase';
+import { SendMarketingMessagesUseCase } from '../../../useCases';
 import { ICreateClientRequestBody } from './interfaces/ISendMarketingMessagesRequest';
 
 export class SendMarketingMessagesController {
-  constructor(private sendMarketingMessagesUseCase: SendMarketingMessagesUseCase) {}
-
   public handle = async (request: Request, response: Response): Promise<void> => {
     const { session, messages, clientNumbers }: ICreateClientRequestBody = request.body;
 
+    const sendMarketingMessagesUseCase = container.resolve(SendMarketingMessagesUseCase);
+
     try {
-      this.sendMarketingMessagesUseCase.execute({
+      sendMarketingMessagesUseCase.execute({
         client: session,
         messages,
         clientNumbers,

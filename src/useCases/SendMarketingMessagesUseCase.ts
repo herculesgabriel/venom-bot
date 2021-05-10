@@ -1,9 +1,16 @@
-import { IChatService } from '../../chatServices/IChatService';
-import { ISendMarketingMessagesDTO } from './interfaces/ISendMarketingMessagesDTO';
-import { formatClientNumber } from '../../utils/venomNumber';
+import { inject, injectable } from 'tsyringe';
 
+import { IChatService } from '../infra/chatServices/IChatService';
+import { ISendMarketingMessagesDTO } from './interfaces/ISendMarketingMessagesDTO';
+
+import { formatClientNumber } from '../utils/venomNumber';
+
+@injectable()
 export class SendMarketingMessagesUseCase {
-  constructor(private chatService: IChatService) {}
+  constructor(
+    @inject('ChatService')
+    private chatService: IChatService,
+  ) {}
 
   public execute = async ({
     client,

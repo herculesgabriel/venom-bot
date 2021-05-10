@@ -1,16 +1,17 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
-import { CreateClientUseCase } from './CreateClientUseCase';
+import { CreateClientUseCase } from '../../../useCases/CreateClientUseCase';
 import { ICreateClientRequestBody } from './interfaces/ICreateClientRequest';
 
 export class CreateClientController {
-  constructor(private createClientUseCase: CreateClientUseCase) {}
-
   public handle = async (request: Request, response: Response): Promise<void> => {
     const { session }: ICreateClientRequestBody = request.body;
 
+    const createClientUseCase = container.resolve(CreateClientUseCase);
+
     try {
-      const qrCode = await this.createClientUseCase.execute({ session });
+      const qrCode = await createClientUseCase.execute({ session });
 
       response.status(200).json({ qrCode });
     } catch (error) {

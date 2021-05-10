@@ -2,10 +2,9 @@ import { create, Whatsapp } from 'venom-bot';
 
 import { IChatService } from '../IChatService';
 
-import { QrCode } from './types';
+type QrCode = { [key: string]: string };
 
 const instances: Whatsapp[] = [];
-
 const qrCodes: QrCode = {};
 
 export class VenomChatService implements IChatService {
